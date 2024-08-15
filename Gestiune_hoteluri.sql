@@ -166,12 +166,12 @@ WHERE CameraID = 1;
 -- Inserarea unei plăți noi în tabela Plati
 INSERT INTO Plati (RezervareID, DataPlata, Suma, MetodaPlata)
 VALUES 
-(1, CURDATE(), 1750.00, 'Card de credit'),
+(1, CURDATE(), 0.00, 'In asteptare'),
 (2, CURDATE(), 1900.00, 'Card de credit'),
 (3, CURDATE(), 2200.00, 'Card de credit'),
 (4, CURDATE(), 2000.00, 'Card de credit'),
 (5, CURDATE(), 1900.00, 'Card de credit'),
-(6, CURDATE(), 1750.00, 'Card de credit');
+(6, CURDATE(), 0.00, 'In asteptare');
 
 
 -- Pentru a descrie tabela Plati:
@@ -199,7 +199,7 @@ JOIN Clienti ON Rezervari.ClientID = Clienti.ClientID
 JOIN Camere ON Rezervari.CameraID = Camere.CameraID
 JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
 LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
-WHERE Rezervari.RezervareID = 1;
+WHERE Rezervari.RezervareID = 2;
 
 SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
        Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
@@ -207,14 +207,15 @@ FROM Rezervari
 JOIN Clienti ON Rezervari.ClientID = Clienti.ClientID
 JOIN Camere ON Rezervari.CameraID = Camere.CameraID
 JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
-INNER JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
-WHERE Rezervari.RezervareID = 1;
+CROSS JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
+WHERE Rezervari.RezervareID = 3;
 
 
 -- Afisarea unui rand sau coloane in functie de instructiune:
 
 SELECT * FROM Plati;
 SELECT * FROM Plati WHERE PlataID = 1;
+SELECT * FROM Plati WHERE Suma = 0;
 SELECT * FROM Plati WHERE Suma >= 2000 or RezervareID = 6; 
 SELECT * FROM Hoteluri;
 SELECT * FROM Hoteluri WHERE Rating >4.5;
@@ -282,6 +283,8 @@ WHERE ClientID IN (SELECT DISTINCT ClientID FROM Rezervari);
 SELECT RezervareID, SUM(Suma) AS TotalPaid
 FROM Plati
 GROUP BY RezervareID;
+
+
 
 
 	
