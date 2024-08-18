@@ -194,7 +194,7 @@ DELETE FROM Plati WHERE Suma BETWEEN 1900 AND 2000;
 -- Interogarea pentru vizualizarea detaliilor unei rezervări
 SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
        Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
-FROM Rezervari
+FROM Rez	ervari
 JOIN Clienti ON Rezervari.ClientID = Clienti.ClientID
 JOIN Camere ON Rezervari.CameraID = Camere.CameraID
 JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
@@ -214,7 +214,7 @@ WHERE Rezervari.RezervareID = 3;
 -- Afisarea unui rand sau coloane in functie de instructiune:
 
 SELECT * FROM Plati;
-SELECT * FROM Plati WHERE PlataID = 1;
+SELECT * FROM Plati WHERE RezervareID = 1;
 SELECT * FROM Plati WHERE Suma = 0;
 SELECT * FROM Plati WHERE Suma >= 2000 or RezervareID = 6; 
 SELECT * FROM Hoteluri;
@@ -253,7 +253,7 @@ SELECT * FROM Camere WHERE HotelID IN (1,2,3);
 
 SELECT COUNT(CameraID) FROM Camere; -- numaram camerele
 SELECT SUM(CameraID) FROM Camere; -- calculam suma parametrilor ceruti
-SELECT SUM(CameraID) FROM Rezervari WHERE DataCheckIn like '2024%';
+SELECT SUM(CameraID) FROM Camere WHERE Pret like '2%';
 
 -- Afisarea tuturor coloanelor:
 SELECT * FROM Rezervari;
@@ -263,8 +263,6 @@ SELECT * FROM Rezervari;
 -- 1. Găsirea hotelurilor cu camere disponibile:
 
 -- Interogare pentru găsirea hotelurilor cu camere disponibile
-
-
 
 SELECT Hoteluri.NumeHotel, Hoteluri.Locatie, COUNT(Camere.CameraID) AS CamereDisponibile
 FROM Hoteluri
@@ -284,7 +282,13 @@ SELECT RezervareID, SUM(Suma) AS TotalPaid
 FROM Plati
 GROUP BY RezervareID;
 
+-- Interogarea pentru vizualizarea detaliilor unei rezervări pentru clientii care nu au efectuat plata
 
-
+SELECT Prenume, Nume, Email
+FROM Clienti
+JOIN Plati ON Clienti.ClientID = Plati.RezervareID
+WHERE Plati.Suma = 0
+GROUP BY Plati.RezervareID
+ORDER BY RezervareID DESC;
 
 	
