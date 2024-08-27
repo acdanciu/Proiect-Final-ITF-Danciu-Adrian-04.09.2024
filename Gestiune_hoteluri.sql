@@ -173,6 +173,9 @@ VALUES
 (5, CURDATE(), 1900.00, 'Card de credit'),
 (6, CURDATE(), 0.00, 'In asteptare');
 
+UPDATE Plati
+SET DataPlata = '2025-01-10' 
+WHERE RezervareId = 3;
 
 -- Pentru a descrie tabela Plati:
 
@@ -252,8 +255,10 @@ SELECT * FROM Camere;
 SELECT * FROM Camere WHERE HotelID IN (1,2,3);
 
 SELECT COUNT(CameraID) FROM Camere; -- numaram camerele
-SELECT SUM(CameraID) FROM Camere; -- calculam suma parametrilor ceruti
-SELECT SUM(CameraID) FROM Camere WHERE Pret like '2%';
+-- SELECT SUM(CameraID) FROM Camere; -- calculam suma parametrilor ceruti
+-- SELECT SUM(CameraID) FROM Camere WHERE Pret like '2%';
+SELECT SUM(Suma) FROM Plati WHERE Suma like '2%';
+SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';
 
 -- Afisarea tuturor coloanelor:
 SELECT * FROM Rezervari;
