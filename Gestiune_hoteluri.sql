@@ -128,6 +128,7 @@ VALUES
 
 select * from Camere;
 
+
 -- 3. INREGISTRAREA UNUI CLIENT NOU
 
 -- Inserarea unui client nou în tabela Clienti
@@ -296,4 +297,9 @@ WHERE Plati.Suma = 0
 GROUP BY Plati.RezervareID
 ORDER BY RezervareID DESC;
 
-	
+-- Filtrarea datelor create de conditia GROUP BY folosing instructiunea HAVING 
+
+SELECT NumarCamera, SUM(Pret) AS suma_totala
+FROM Camere
+GROUP BY NumarCamera
+HAVING SUM(Pret) > 200;
