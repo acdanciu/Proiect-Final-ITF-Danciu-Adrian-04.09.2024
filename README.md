@@ -176,7 +176,10 @@ DELETE FROM Plati WHERE Suma BETWEEN 1900 AND 2000;
 
 In order to simulate various scenarios that might happen in real life I created the following queries that would cover multiple potential real-life situations:
 
-IELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
+
+Query to find the reservtion details:
+
+SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
        Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
 FROM Rezervari
 JOIN Clienti ON Rezervari.ClientID = Clienti.ClientID
@@ -186,27 +189,60 @@ LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
 WHERE Rezervari.RezervareID = 2;
 
 SELECT * FROM Plati;
+
+Finding payments where the Reservation ID is 1:
+
 SELECT * FROM Plati WHERE RezervareID = 1;
+
+Finding payments where the amount is 0:
+
 SELECT * FROM Plati WHERE Suma = 0;
+
+Finding payments where the amount is grater or equal to 2000 or the reservation ID is 6:
+
 SELECT * FROM Plati WHERE Suma >= 2000 or RezervareID = 6; 
+
 SELECT * FROM Hoteluri;
+
+Finfding hotels with grater than 4.5 stars:
+
 SELECT * FROM Hoteluri WHERE Rating >4.5;
+
+Finding hotels with description that contains the word "lux" and they are located in Croatia:
+
 SELECT * FROM Hoteluri WHERE Descriere like '%lux%' and Locatie = 'Croatia';
+
+Finding hotels with description that contains the word "lux" or they are located in Croatia:
+
 SELECT * FROM Hoteluri WHERE Descriere like '%lux%' or Locatie = 'Croatia';
+
+Results in descending order:
 
 SELECT * FROM Plati ORDER BY Suma DESC;
 
+Finding payments where the amount starts with "2"
+
 SELECT * FROM Plati WHERE Suma like '2%';
+
+Finding names containing word "pop":
 
 SELECT * FROM Clienti WHERE Nume like '%pop%';
 
-SELECT * FROM Clienti WHERE Nume like '%pop%'and Telefon like '%456';
+Finding names containing word "pop" with phone numbers ending in "456":
+
+SELECT * FROM Clienti WHERE Nume like '%pop%' and Telefon like '%456';
+
+Finding rooms in certain hotels:
 
 SELECT * FROM Camere WHERE HotelID IN (1,2,3);
 
+Count the number of rooms:
+
 SELECT COUNT(CameraID) FROM Camere;
 
-SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';
+Calculate the payments sum where payment year is 2024:
+
+SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';  
 
 
 Filtering data created by the GROUP BY condition using the HAVING clause:
