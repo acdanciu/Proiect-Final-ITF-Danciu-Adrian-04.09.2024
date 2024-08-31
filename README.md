@@ -1,4 +1,5 @@
 Database Project for **Sistem de gestionare al rezervarilor hoteliere**
+
 The scope of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
 
 Application under test: Gestiune_hoteluri.sql
@@ -15,9 +16,13 @@ You can find below the database schema that was generated through Reverse Engine
 The tables are connected in the following way:
 
 **Hoteluri** was implemented through **Hoteluri.HotelID** as a primary key 
+
 **Camere** was connected with **Hoteluri** through a **One to one** relationship which was implemented through **Camere.CameraID** as a primary key and **Hoteluri.HotelID** as a foreign key
+
 **Clienti** was implemented through *Clienti.ClientID** as a primary key 
+
 **Rezervari** is connected with **Clienti** and **Camere** through a **One to many** relationship which was implemented through **Rezervari.RezervareID** as a primary key and **Clienti.ClientID** pluse **Camere.CameraID** as foreign keys
+
 **Plati** was connected with **Rezervari** through a **One to one** relationship which was implemented through **Plati.PlataID** as a primary key and **Rezervari.RezervareID** as a foreign key
 
 Database Queries
