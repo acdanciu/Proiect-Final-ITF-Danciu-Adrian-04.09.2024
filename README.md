@@ -27,7 +27,7 @@ The tables are connected in the following way:
 
 Database Queries
 
-DDL (Data Definition Language)
+**DDL (Data Definition Language)**
 The following instructions were written in the scope of CREATING the structure of the database (CREATE INSTRUCTIONS)
 
 CREATE TABLE Hoteluri (
@@ -89,7 +89,7 @@ ALTER TABLE Hoteluri DROP COLUMN Recenzii; -- This instruction is deleting the c
 ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID); -- This instruction is adding a 
 foreign key to the table Plati
 
-DML (Data Manipulation Language)
+**DML (Data Manipulation Language)**
 In order to be able to use the database I populated the tables with various data necessary in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
 
 Below you can find all the insert instructions that were created in the scope of this project:
@@ -171,7 +171,7 @@ WHERE RezervareId = 3;
  UPDATE Plati SET MetodaPlata = 'Cash';
  UPDATE Plati SET MetodaPlata = 'Card de credit';
 
-DQL (Data Query Language)
+**DQL (Data Query Language)**
 After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
 
 DELETE FROM Plati WHERE Suma = "1750";
@@ -289,4 +289,4 @@ ORDER BY RezervareID DESC;
 
 
 
-In conclusion, this database project has been a valuable opportunity to apply theoretical knowledge to a practical scenario, reinforcing SQL concepts and skills. It serves as a foundation for further exploration and improvement in database design and management. The experience gained from this project contributes to a broader understanding of software development and database administration.
+**In conclusion**, this database project has been a valuable opportunity to apply theoretical knowledge to a practical scenario, reinforcing SQL concepts and skills. It serves as a foundation for further exploration and improvement in database design and management. The experience gained from this project contributes to a broader understanding of software development and database administration.
