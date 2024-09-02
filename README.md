@@ -179,7 +179,7 @@ VALUES
 (6, CURDATE(), 0.00, 'In asteptare');
 ```
 
-After the insert, in order to prepare the data to be better suited for the testing process, I updated some data in the following way:
+After the insert, in order to prepare the data to be better suited for the testing process, I have updated some data in the following way:
 
 ```sql
 UPDATE Rezervari
