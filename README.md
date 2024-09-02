@@ -90,18 +90,24 @@ CREATE TABLE Plati (
 After the database and the tables have been created, a few ALTER instructions were written in order to update the structure of the database, as described below:
 
 ```
-ALTER TABLE Hoteluri MODIFY NumeHotel VARCHAR(40) NOT NULL; -- This instruction changes the variable type from 30 to 40 characters and add NOT NULL (cannot have a value of 0).
+ALTER TABLE Hoteluri MODIFY NumeHotel VARCHAR(40) NOT NULL; 
 ```
+* This instruction changes the variable type from 30 to 40 characters and add NOT NULL (cannot have a value of 0).
+
 ```
-ALTER TABLE Hoteluri ADD COLUMN Recenzii VARCHAR (100); -- This instruction is adding one column to the table Hoteluri
+ALTER TABLE Hoteluri ADD COLUMN Recenzii VARCHAR (100);
 ```
+* This instruction is adding one column to the table Hoteluri
+  
 ```
-ALTER TABLE Hoteluri DROP COLUMN Recenzii; -- This instruction is deleting the column Recenzii from the table Hoteluri
+ALTER TABLE Hoteluri DROP COLUMN Recenzii; 
 ```
+* This instruction is deleting the column Recenzii from the table Hoteluri
+  
 ```
-ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID); -- This instruction is adding a 
-foreign key to the table Plati
+ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID); 
 ```
+* This instruction is adding a foreign key to the table Plati
 
 ### DML (Data Manipulation Language)
 In order to be able to use the database I populated the tables with various data necessary in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
