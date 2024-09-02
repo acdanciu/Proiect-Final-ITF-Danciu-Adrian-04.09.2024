@@ -111,9 +111,9 @@ ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID);
 ```
 
 ### DML (Data Manipulation Language)
-In order to be able to use the database I populated the tables with various data necessary in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
+In order to be able to use the database I have populated the tables with various necessary data in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
 
-##### Below you can find all the insert instructions that were created in the scope of this project:
+##### Below you can find all the insert instructions that were created for the purpose of this project:
 
 ```
 INSERT INTO Hoteluri (NumeHotel, Locatie, Rating, Descriere)
