@@ -255,10 +255,13 @@ SELECT * FROM Clienti WHERE Nume like '%pop%'and Telefon like '%456';
 SELECT * FROM Camere;
 SELECT * FROM Camere WHERE HotelID IN (1,2,3);
 
-SELECT COUNT(CameraID) FROM Camere; -- numaram camerele
--- SELECT SUM(CameraID) FROM Camere; -- calculam suma parametrilor ceruti
--- SELECT SUM(CameraID) FROM Camere WHERE Pret like '2%';
+-- Numaram camerele:
+SELECT COUNT(CameraID) FROM Camere; 
+
+--Selectam din tabela Plati unde suma incepe cu “2” pentru aplasa un cadou in camera, celor care plătesc o suma mai mare:
 SELECT SUM(Suma) FROM Plati WHERE Suma like '2%';
+
+-- Calculam suma parametrilor ceruti:
 SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';
 
 -- Afisarea tuturor coloanelor:
