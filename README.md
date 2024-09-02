@@ -108,14 +108,14 @@ In order to be able to use the database I populated the tables with various data
 
 Below you can find all the insert instructions that were created in the scope of this project:
 
-
+'''
 INSERT INTO Hoteluri (NumeHotel, Locatie, Rating, Descriere)
 VALUES 
 ('Hotel Ocean View', 'Miami Beach, FL', 4.5, 'Un hotel frumos pe malul oceanului, cu vederi uimitoare.'),
 ('Hotel Marriott', 'Los Angeles, CA', 4.5, 'Un hotel elegant cu vedere la Pacific'),
 ('Hotel Fairmont', 'Maui, HI', 5.00, 'Un hotel de lux pe malul oceanului'),
 ('Hotel Morenia Beach Resort', 'Croatia', 4.3, 'Un hotel all inclusive, cu vedere la Marea Adriatica');
-
+'''
 
 INSERT INTO Camere (HotelID, NumarCamera, TipCamera, Pret, StatusDisponibilitate)
 VALUES 
@@ -186,6 +186,7 @@ WHERE RezervareId = 3;
  UPDATE Plati SET MetodaPlata = 'Card de credit';
 
 ### DQL (Data Query Language)
+
 After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
 
 DELETE FROM Plati WHERE Suma = "1750";
@@ -264,16 +265,18 @@ Calculate the payments sum where payment year is 2024:
 SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';  
 
 
-Filtering data created by the GROUP BY condition using the HAVING clause:
+## Filtering data created by the GROUP BY condition using the HAVING clause:
 
+'''
 SELECT NumarCamera, SUM(Pret) AS suma_totala
 FROM Camere
 GROUP BY NumarCamera
 HAVING SUM(Pret) > 200;
+'''
 
-Subqueries:
+## Subqueries:
 
-1. Query to find hotels with available rooms
+### 1. Query to find hotels with available rooms
 
 SELECT Hoteluri.NumeHotel, Hoteluri.Locatie, COUNT(Camere.CameraID) AS CamereDisponibile
 FROM Hoteluri
@@ -281,7 +284,7 @@ JOIN Camere ON Hoteluri.HotelID = Camere.HotelID
 WHERE Camere.StatusDisponibilitate = 'Disponibil'
 GROUP BY Hoteluri.HotelID;
 
-2. Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
+#### 2. Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
 
 SELECT Prenume, Nume, Email
 FROM Clienti
