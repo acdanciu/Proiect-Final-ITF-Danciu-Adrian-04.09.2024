@@ -1,35 +1,38 @@
-Database Project for **Sistem de gestionare al rezervarilor hoteliere**
+# Database Project for **Sistem de gestionare al rezervarilor hoteliere**
 
 The scope of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
 
-Application under test: Gestiune_hoteluri.sql
+**Application under test:** Gestiune_hoteluri.sql
 
-Tools used: MySQL Workbench
+**Tools used:** MySQL Workbench
 
-Database description: 
+**Database description:**
 
 We will create a Hotel Reservation Management System to manage hotels, rooms, customers, reservations, and payments. This system will include functionalities for adding new hotels and rooms, registering new customers, processing reservations, and tracking payments.
 
-Database Schema
+**Database Schema**
 
 You can find below the database schema that was generated through Reverse Engineer and which contains all the tables and the relationships between them.
+
 The tables are connected in the following way:
 
-**Hoteluri** was implemented through **Hoteluri.HotelID** as a primary key 
+- **Hoteluri** was implemented through **Hoteluri.HotelID** as a primary key 
 
-**Camere** was connected with **Hoteluri** through a **One to one** relationship which was implemented through **Camere.CameraID** as a primary key and **Hoteluri.HotelID** as a foreign key
+- **Camere** was connected with **Hoteluri** through a **One to one** relationship which was implemented through **Camere.CameraID** as a primary key and **Hoteluri.HotelID** as a foreign key
 
-**Clienti** was implemented through *Clienti.ClientID** as a primary key 
+- **Clienti** was implemented through *Clienti.ClientID** as a primary key 
 
-**Rezervari** is connected with **Clienti** and **Camere** through a **One to many** relationship which was implemented through **Rezervari.RezervareID** as a primary key and **Clienti.ClientID** pluse **Camere.CameraID** as foreign keys
+- **Rezervari** is connected with **Clienti** and **Camere** through a **One to many** relationship which was implemented through **Rezervari.RezervareID** as a primary key and **Clienti.ClientID** pluse **Camere.CameraID** as foreign keys
 
-**Plati** was connected with **Rezervari** through a **One to one** relationship which was implemented through **Plati.PlataID** as a primary key and **Rezervari.RezervareID** as a foreign key
+- **Plati** was connected with **Rezervari** through a **One to one** relationship which was implemented through **Plati.PlataID** as a primary key and **Rezervari.RezervareID** as a foreign key
 
-Database Queries
+## Database Queries
 
-**DDL (Data Definition Language)**
+### DDL (Data Definition Language)
+
 The following instructions were written in the scope of CREATING the structure of the database (CREATE INSTRUCTIONS)
 
+```
 CREATE TABLE Hoteluri (
     HotelID INT AUTO_INCREMENT PRIMARY KEY,
     NumeHotel VARCHAR(30),
@@ -37,7 +40,8 @@ CREATE TABLE Hoteluri (
     Rating DECIMAL(2, 1),
     Descriere TEXT
 );
-
+```
+```
 CREATE TABLE Camere (
     CameraID INT AUTO_INCREMENT PRIMARY KEY,
     HotelID INT,
@@ -47,7 +51,8 @@ CREATE TABLE Camere (
     StatusDisponibilitate VARCHAR(20),
     FOREIGN KEY (HotelID) REFERENCES Hoteluri(HotelID)
 );
-
+```
+```
 CREATE TABLE Clienti (
     ClientID INT AUTO_INCREMENT PRIMARY KEY,
     Prenume VARCHAR(20),
@@ -56,7 +61,9 @@ CREATE TABLE Clienti (
     Telefon VARCHAR(15),
     Email VARCHAR(30)
 );
+```
 
+```
 CREATE TABLE Rezervari (
     RezervareID INT AUTO_INCREMENT PRIMARY KEY,
     ClientID INT,
@@ -68,7 +75,8 @@ CREATE TABLE Rezervari (
     FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID),
     FOREIGN KEY (CameraID) REFERENCES Camere(CameraID)
 );
-
+```
+```
 CREATE TABLE Plati (
     PlataID INT AUTO_INCREMENT PRIMARY KEY,
     RezervareID INT,
@@ -77,19 +85,25 @@ CREATE TABLE Plati (
     MetodaPlata VARCHAR(20),
     FOREIGN KEY (RezervareID) REFERENCES Rezervari(RezervareID)
 );
+```
 
 After the database and the tables have been created, a few ALTER instructions were written in order to update the structure of the database, as described below:
 
+```
 ALTER TABLE Hoteluri MODIFY NumeHotel VARCHAR(40) NOT NULL; -- This instruction changes the variable type from 30 to 40 characters and add NOT NULL (cannot have a value of 0).
-
+```
+```
 ALTER TABLE Hoteluri ADD COLUMN Recenzii VARCHAR (100); -- This instruction is adding one column to the table Hoteluri
-
+```
+```
 ALTER TABLE Hoteluri DROP COLUMN Recenzii; -- This instruction is deleting the column Recenzii from the table Hoteluri
-
+```
+```
 ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID); -- This instruction is adding a 
 foreign key to the table Plati
+```
 
-**DML (Data Manipulation Language)**
+### DML (Data Manipulation Language)
 In order to be able to use the database I populated the tables with various data necessary in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
 
 Below you can find all the insert instructions that were created in the scope of this project:
@@ -171,7 +185,7 @@ WHERE RezervareId = 3;
  UPDATE Plati SET MetodaPlata = 'Cash';
  UPDATE Plati SET MetodaPlata = 'Card de credit';
 
-**DQL (Data Query Language)**
+### DQL (Data Query Language)
 After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
 
 DELETE FROM Plati WHERE Suma = "1750";
@@ -289,4 +303,7 @@ ORDER BY RezervareID DESC;
 
 
 
-**In conclusion**, this database project has been a valuable opportunity to apply theoretical knowledge to a practical scenario, reinforcing SQL concepts and skills. It serves as a foundation for further exploration and improvement in database design and management. The experience gained from this project contributes to a broader understanding of software development and database administration.
+## Conclusion
+
+This database project has been a valuable opportunity to apply theoretical knowledge to a practical scenario, reinforcing SQL concepts and skills. It serves as a foundation for further exploration and improvement in database design and management. The experience gained from this project contributes to a broader understanding of software development and database administration.
+
