@@ -30,7 +30,7 @@ The tables are connected in the following way:
 
 ### DDL (Data Definition Language)
 
-The following instructions were written in the scope of CREATING the structure of the database (CREATE INSTRUCTIONS)
+The following instructions were written in the scope of CREATING the structure of the database (CREATE INSTRUCTIONS):
 
 ```
 CREATE TABLE Hoteluri (
@@ -87,32 +87,33 @@ CREATE TABLE Plati (
 );
 ```
 
-After the database and the tables have been created, a few ALTER instructions were written in order to update the structure of the database, as described below:
 
-```
+#### After the database and the tables have been created, a few ALTER instructions were writtenin order to update the structure of the database, as described below:
+
+```sql
+# This instruction changes the variable type from 30 to 40 characters and add NOT NULL (cannot have a value of 0):
+
 ALTER TABLE Hoteluri MODIFY NumeHotel VARCHAR(40) NOT NULL; 
-```
-* This instruction changes the variable type from 30 to 40 characters and add NOT NULL (cannot have a value of 0).
+
+
+# This instruction is adding one column to the table Hoteluri:
+
+ALTER TABLE Hoteluri ADD COLUMN Recenzii VARCHAR (100);
+
+# This instruction is deleting the column Recenzii from the table Hoteluri:
+
+ALTER TABLE Hoteluri DROP COLUMN Recenzii; 
+
+# This instruction is adding a foreign key to the table Plati:
+
+ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID);
 
 ```
-ALTER TABLE Hoteluri ADD COLUMN Recenzii VARCHAR (100);
-```
-* This instruction is adding one column to the table Hoteluri
-  
-```
-ALTER TABLE Hoteluri DROP COLUMN Recenzii; 
-```
-* This instruction is deleting the column Recenzii from the table Hoteluri
-  
-```
-ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID); 
-```
-* This instruction is adding a foreign key to the table Plati
 
 ### DML (Data Manipulation Language)
 In order to be able to use the database I populated the tables with various data necessary in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
 
-Below you can find all the insert instructions that were created in the scope of this project:
+##### Below you can find all the insert instructions that were created in the scope of this project:
 
 ```
 INSERT INTO Hoteluri (NumeHotel, Locatie, Rating, Descriere)
@@ -141,6 +142,7 @@ VALUES
 ('Raluca', 'Ionescu', 'Str Nordului 50', '0740123457', 'raluca.ionescu@email.com'),
 ('Maria', 'Popescu', 'Str Principala 123', '0720123457', 'maria.popescu@email.com');
 ```
+
 ```
 ALTER TABLE Clienti
 ADD COLUMN JoinDate DATE;
@@ -179,7 +181,7 @@ VALUES
 
 After the insert, in order to prepare the data to be better suited for the testing process, I updated some data in the following way:
 
-```
+```sql
 UPDATE Rezervari
 SET Status = 'In asteptare'
 WHERE RezervareID = '1';
@@ -204,88 +206,73 @@ UPDATE Plati SET MetodaPlata = 'Card de credit';
 
 After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
 
-```
+```sql
 DELETE FROM Plati WHERE Suma = "1750";
 
 DELETE FROM Plati WHERE Suma BETWEEN 1900 AND 2000;
 ```
 
-In order to simulate various scenarios that might happen in real life I created the following queries that would cover multiple potential real-life situations:
+##### In order to simulate various scenarios that might happen in real life I have created the following queries that would cover multiple potential real-life situations:
 
+```sql
+SELECT * FROM Plati;
 
-## Query to find the reservtion details:
+# Finding payments where the Reservation ID is 1:
 
-```
-SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
-       Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
-FROM Rezervari
-JOIN Clienti ON Rezervari.ClientID = Clienti.ClientID
-JOIN Camere ON Rezervari.CameraID = Camere.CameraID
-JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
-LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
-WHERE Rezervari.RezervareID = 2;
-```
-
-# SELECT * FROM Plati;
-
-Finding payments where the Reservation ID is 1:
-```
 SELECT * FROM Plati WHERE RezervareID = 1;
-```
-Finding payments where the amount is 0:
-```
+
+# Finding payments where the amount is 0:
+
 SELECT * FROM Plati WHERE Suma = 0;
-```
-Finding payments where the amount is grater or equal to 2000 or the reservation ID is 6:
-```
+
+# Finding payments where the amount is grater or equal to 2000 or the reservation ID is 6:
+
 SELECT * FROM Plati WHERE Suma >= 2000 or RezervareID = 6; 
-```
+
 SELECT * FROM Hoteluri;
 
-Finfding hotels with grater than 4.5 stars:
-```
+# Finding hotels with grater than 4.5 stars:
+
 SELECT * FROM Hoteluri WHERE Rating >4.5;
-```
-Finding hotels with description that contains the word "lux" and they are located in Croatia:
-```
+
+# Finding hotels with description that contains the word "lux" and they are located in Croatia:
+
 SELECT * FROM Hoteluri WHERE Descriere like '%lux%' and Locatie = 'Croatia';
-```
-Finding hotels with description that contains the word "lux" or they are located in Croatia:
-```
+
+# Finding hotels with description that contains the word "lux" or they are located in Croatia:
+
 SELECT * FROM Hoteluri WHERE Descriere like '%lux%' or Locatie = 'Croatia';
-```
-Results in descending order:
-```
+
+# Results in descending order:
+
 SELECT * FROM Plati ORDER BY Suma DESC;
-```
-Finding payments where the amount starts with "2"
-```
+
+# Finding payments where the amount starts with "2" (a hotel policy to offer a gift basket in the higher rates rooms)
+
 SELECT * FROM Plati WHERE Suma like '2%';
-```
-Finding names containing word "pop":
-```
+
+# Finding names containing word "pop":
+
 SELECT * FROM Clienti WHERE Nume like '%pop%';
-```
-Finding names containing word "pop" with phone numbers ending in "456":
-```
+
+# Finding names containing word "pop" with phone numbers ending in "456":
+
 SELECT * FROM Clienti WHERE Nume like '%pop%' and Telefon like '%456';
-```
-Finding rooms in certain hotels:
-```
+
+# Finding rooms in certain hotels:
+
 SELECT * FROM Camere WHERE HotelID IN (1,2,3);
-```
-Count the number of rooms:
-```
+
+# Count the number of rooms:
+
 SELECT COUNT(CameraID) FROM Camere;
-```
-Calculate the payments sum where payment year is 2024:
-```
+
+# Calculate the payments sum where payment year is 2024:
+
 SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';  
-```
 
-## Filtering data created by the GROUP BY condition using the HAVING clause:
+# Filtering data created by the GROUP BY condition using the HAVING clause:
 
-```
 SELECT NumarCamera, SUM(Pret) AS suma_totala
 FROM Camere
 GROUP BY NumarCamera
@@ -294,8 +281,7 @@ HAVING SUM(Pret) > 200;
 
 ## Subqueries:
 
-### 1. Query to find hotels with available rooms
-
+##### 1. Query to find hotels with available rooms
 ```
 SELECT Hoteluri.NumeHotel, Hoteluri.Locatie, COUNT(Camere.CameraID) AS CamereDisponibile
 FROM Hoteluri
@@ -303,9 +289,7 @@ JOIN Camere ON Hoteluri.HotelID = Camere.HotelID
 WHERE Camere.StatusDisponibilitate = 'Disponibil'
 GROUP BY Hoteluri.HotelID;
 ```
-
-#### 2. Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
-
+##### 2. Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
 ```
 SELECT Prenume, Nume, Email
 FROM Clienti
@@ -317,7 +301,7 @@ WHERE ClientID IN
 			AND STATUS = "In Asteptare");
 ```
 
-#### 3. Query to view the details of a reservation for customers who have not made a payment:
+##### 3. Query to view the details of a reservation for customers who have not made a payment:
 ```
 SELECT Prenume, Nume, Email
 FROM Clienti
@@ -327,6 +311,17 @@ GROUP BY Plati.RezervareID
 ORDER BY RezervareID DESC;
 ```
 
+##### 4. Query to find the reservation details:
+```
+SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
+       Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
+FROM Rezervari
+JOIN Clienti ON Rezervari.ClientID = Clienti.ClientID
+JOIN Camere ON Rezervari.CameraID = Camere.CameraID
+JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
+LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
+WHERE Rezervari.RezervareID = 2;
+```
 
 ## Conclusion
 
