@@ -108,23 +108,24 @@ In order to be able to use the database I populated the tables with various data
 
 Below you can find all the insert instructions that were created in the scope of this project:
 
-'''
+```
 INSERT INTO Hoteluri (NumeHotel, Locatie, Rating, Descriere)
 VALUES 
 ('Hotel Ocean View', 'Miami Beach, FL', 4.5, 'Un hotel frumos pe malul oceanului, cu vederi uimitoare.'),
 ('Hotel Marriott', 'Los Angeles, CA', 4.5, 'Un hotel elegant cu vedere la Pacific'),
 ('Hotel Fairmont', 'Maui, HI', 5.00, 'Un hotel de lux pe malul oceanului'),
 ('Hotel Morenia Beach Resort', 'Croatia', 4.3, 'Un hotel all inclusive, cu vedere la Marea Adriatica');
-'''
-
+```
+```
 INSERT INTO Camere (HotelID, NumarCamera, TipCamera, Pret, StatusDisponibilitate)
 VALUES 
 (1, '101', 'Deluxe Suite', 250.00, 'Disponibil'),
 (2, '505', 'Standard Room', 200.00, 'Rezervat'),
 (3, '303', 'Garden View Room', 190.00, 'Confirmat'),
 (4, '808', 'Ocean View Room', 300.00, 'Disponibil');
+```
 
-
+```
 INSERT INTO Clienti (Prenume, Nume, Adresa, Telefon, Email, JoinDate)
 VALUES
 ('Ion', 'Popescu', 'Str Principala 123', '0720123456', 'ion.popescu@email.com'),
@@ -133,17 +134,22 @@ VALUES
 ('Elena', 'Pop', 'Str. Marginasa 25', '0760123456', 'daniel.pop@meial.com'),
 ('Raluca', 'Ionescu', 'Str Nordului 50', '0740123457', 'raluca.ionescu@email.com'),
 ('Maria', 'Popescu', 'Str Principala 123', '0720123457', 'maria.popescu@email.com');
-
+```
+```
 ALTER TABLE Clienti
 ADD COLUMN JoinDate DATE;
+```
 
+```
 UPDATE Clienti SET JoinDate = '2022-02-01' WHERE ClientID = 1;
 UPDATE Clienti SET JoinDate = '2022-08-01' WHERE ClientID = 2;
 UPDATE Clienti SET JoinDate = '2024-02-01' WHERE ClientID = 3;
 UPDATE Clienti SET JoinDate = '2024-08-01' WHERE ClientID = 4;
 UPDATE Clienti SET JoinDate = '2024-04-01' WHERE ClientID = 5;
 UPDATE Clienti SET JoinDate = '2023-02-01' WHERE ClientID = 6;
+```
 
+```
 INSERT INTO Rezervari (ClientID, CameraID, DataRezervare, DataCheckIn, DataCheckOut, Status)
 VALUES 
 (1, 1, CURDATE(), '2024-09-01', '2024-09-07', 'Confirmat'),
@@ -152,9 +158,10 @@ VALUES
 (4, 4, CURDATE(), '2024-12-24', '2025-01-02', 'Confirmat'),
 (5, 2, CURDATE(), '2024-10-01', '2024-10-08', 'Confirmat'),
 (6, 1, CURDATE(), '2024-09-01', '2024-09-07', 'Confirmat');
+```
 
-
-NSERT INTO Plati (RezervareID, DataPlata, Suma, MetodaPlata)
+```
+INSERT INTO Plati (RezervareID, DataPlata, Suma, MetodaPlata)
 VALUES 
 (1, CURDATE(), 0.00, 'In asteptare'),
 (2, CURDATE(), 1900.00, 'Card de credit'),
@@ -162,10 +169,11 @@ VALUES
 (4, CURDATE(), 2000.00, 'Card de credit'),
 (5, CURDATE(), 1900.00, 'Card de credit'),
 (6, CURDATE(), 0.00, 'In asteptare');
-
+```
 
 After the insert, in order to prepare the data to be better suited for the testing process, I updated some data in the following way:
 
+```
 UPDATE Rezervari
 SET Status = 'In asteptare'
 WHERE RezervareID = '1';
@@ -182,23 +190,26 @@ UPDATE Plati
 SET DataPlata = '2025-01-10' 
 WHERE RezervareId = 3;
 
- UPDATE Plati SET MetodaPlata = 'Cash';
- UPDATE Plati SET MetodaPlata = 'Card de credit';
+UPDATE Plati SET MetodaPlata = 'Cash';
+UPDATE Plati SET MetodaPlata = 'Card de credit';
+```
 
 ### DQL (Data Query Language)
 
 After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
 
+```
 DELETE FROM Plati WHERE Suma = "1750";
 
 DELETE FROM Plati WHERE Suma BETWEEN 1900 AND 2000;
-
+```
 
 In order to simulate various scenarios that might happen in real life I created the following queries that would cover multiple potential real-life situations:
 
 
-Query to find the reservtion details:
+## Query to find the reservtion details:
 
+```
 SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
        Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
 FROM Rezervari
@@ -207,85 +218,89 @@ JOIN Camere ON Rezervari.CameraID = Camere.CameraID
 JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
 LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
 WHERE Rezervari.RezervareID = 2;
+```
 
-SELECT * FROM Plati;
+# SELECT * FROM Plati;
 
 Finding payments where the Reservation ID is 1:
-
+```
 SELECT * FROM Plati WHERE RezervareID = 1;
-
+```
 Finding payments where the amount is 0:
-
+```
 SELECT * FROM Plati WHERE Suma = 0;
-
+```
 Finding payments where the amount is grater or equal to 2000 or the reservation ID is 6:
-
+```
 SELECT * FROM Plati WHERE Suma >= 2000 or RezervareID = 6; 
-
+```
 SELECT * FROM Hoteluri;
 
 Finfding hotels with grater than 4.5 stars:
-
+```
 SELECT * FROM Hoteluri WHERE Rating >4.5;
-
+```
 Finding hotels with description that contains the word "lux" and they are located in Croatia:
-
+```
 SELECT * FROM Hoteluri WHERE Descriere like '%lux%' and Locatie = 'Croatia';
-
+```
 Finding hotels with description that contains the word "lux" or they are located in Croatia:
-
+```
 SELECT * FROM Hoteluri WHERE Descriere like '%lux%' or Locatie = 'Croatia';
-
+```
 Results in descending order:
-
+```
 SELECT * FROM Plati ORDER BY Suma DESC;
-
+```
 Finding payments where the amount starts with "2"
-
+```
 SELECT * FROM Plati WHERE Suma like '2%';
-
+```
 Finding names containing word "pop":
-
+```
 SELECT * FROM Clienti WHERE Nume like '%pop%';
-
+```
 Finding names containing word "pop" with phone numbers ending in "456":
-
+```
 SELECT * FROM Clienti WHERE Nume like '%pop%' and Telefon like '%456';
-
+```
 Finding rooms in certain hotels:
-
+```
 SELECT * FROM Camere WHERE HotelID IN (1,2,3);
-
+```
 Count the number of rooms:
-
+```
 SELECT COUNT(CameraID) FROM Camere;
-
+```
 Calculate the payments sum where payment year is 2024:
-
+```
 SELECT SUM(Suma) FROM Plati WHERE DataPlata like '2024%';  
-
+```
 
 ## Filtering data created by the GROUP BY condition using the HAVING clause:
 
-'''
+```
 SELECT NumarCamera, SUM(Pret) AS suma_totala
 FROM Camere
 GROUP BY NumarCamera
 HAVING SUM(Pret) > 200;
-'''
+```
 
 ## Subqueries:
 
 ### 1. Query to find hotels with available rooms
 
+```
 SELECT Hoteluri.NumeHotel, Hoteluri.Locatie, COUNT(Camere.CameraID) AS CamereDisponibile
 FROM Hoteluri
 JOIN Camere ON Hoteluri.HotelID = Camere.HotelID
 WHERE Camere.StatusDisponibilitate = 'Disponibil'
 GROUP BY Hoteluri.HotelID;
+```
 
 #### 2. Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
 
+```
 SELECT Prenume, Nume, Email
 FROM Clienti
 WHERE ClientID IN 
@@ -294,16 +309,17 @@ WHERE ClientID IN
 			WHERE extract(YEAR FROM c.JoinDate) >= 2023
 			AND extract(YEAR FROM DataRezervare) >= 2024
 			AND STATUS = "In Asteptare");
+```
 
-3. Query to view the details of a reservation for customers who have not made a payment:
-
+#### 3. Query to view the details of a reservation for customers who have not made a payment:
+```
 SELECT Prenume, Nume, Email
 FROM Clienti
 JOIN Plati ON Clienti.ClientID = Plati.RezervareID
 WHERE Plati.Suma = 0
 GROUP BY Plati.RezervareID
 ORDER BY RezervareID DESC;
-
+```
 
 
 ## Conclusion
