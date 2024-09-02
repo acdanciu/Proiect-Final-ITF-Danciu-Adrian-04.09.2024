@@ -1,6 +1,6 @@
 # Database Project for **Sistem de gestionare al rezervarilor hoteliere**
 
-The scope of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
+The purpose of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
 
 **Application under test:** Gestiune_hoteluri.sql
 
@@ -30,7 +30,7 @@ The tables are connected in the following way:
 
 ### DDL (Data Definition Language)
 
-The following instructions were written in the scope of CREATING the structure of the database (CREATE INSTRUCTIONS):
+The following instructions were written with the purpose of CREATING the structure of the database (CREATE INSTRUCTIONS):
 
 ```
 CREATE TABLE Hoteluri (
