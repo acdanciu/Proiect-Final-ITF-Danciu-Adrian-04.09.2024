@@ -279,7 +279,7 @@ GROUP BY NumarCamera
 HAVING SUM(Pret) > 200;
 ```
 
-## Subqueries:
+## Queries:
 
 ##### 1. Query to find hotels with available rooms
 ```
@@ -289,19 +289,8 @@ JOIN Camere ON Hoteluri.HotelID = Camere.HotelID
 WHERE Camere.StatusDisponibilitate = 'Disponibil'
 GROUP BY Hoteluri.HotelID;
 ```
-##### 2. Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
-```
-SELECT Prenume, Nume, Email
-FROM Clienti
-WHERE ClientID IN 
-(SELECT DISTINCT c.ClientID FROM Clienti c INNER JOIN Rezervari r
-			on c.clientId = r.clientId
-			WHERE extract(YEAR FROM c.JoinDate) >= 2023
-			AND extract(YEAR FROM DataRezervare) >= 2024
-			AND STATUS = "In Asteptare");
-```
 
-##### 3. Query to view the details of a reservation for customers who have not made a payment:
+##### 2. Query to view the details of a reservation for customers who have not made a payment:
 ```
 SELECT Prenume, Nume, Email
 FROM Clienti
@@ -311,7 +300,7 @@ GROUP BY Plati.RezervareID
 ORDER BY RezervareID DESC;
 ```
 
-##### 4. Query to find the reservation details:
+##### 3. Query to find the reservation details:
 ```
 SELECT Rezervari.RezervareID, Clienti.Prenume, Clienti.Nume, Hoteluri.NumeHotel, Camere.NumarCamera, Camere.TipCamera, 
        Rezervari.DataCheckIn, Rezervari.DataCheckOut, Plati.Suma, Plati.DataPlata
@@ -321,6 +310,20 @@ JOIN Camere ON Rezervari.CameraID = Camere.CameraID
 JOIN Hoteluri ON Camere.HotelID = Hoteluri.HotelID
 LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
 WHERE Rezervari.RezervareID = 2;
+```
+
+## Subquerie
+
+Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
+```
+SELECT Prenume, Nume, Email
+FROM Clienti
+WHERE ClientID IN 
+(SELECT DISTINCT c.ClientID FROM Clienti c INNER JOIN Rezervari r
+			on c.clientId = r.clientId
+			WHERE extract(YEAR FROM c.JoinDate) >= 2023
+			AND extract(YEAR FROM DataRezervare) >= 2024
+			AND STATUS = "In Asteptare");
 ```
 
 ## Conclusion
