@@ -312,7 +312,7 @@ LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
 WHERE Rezervari.RezervareID = 2;
 ```
 
-### Subquerie
+### Subquery
 
 Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
 ```
