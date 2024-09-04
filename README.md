@@ -28,7 +28,7 @@ The tables are connected in the following way:
 
 ## Database Queries
 
-### DDL (Data Definition Language)
+## DDL (Data Definition Language)
 
 The following instructions were written with the purpose of CREATING the structure of the database (CREATE INSTRUCTIONS):
 
@@ -110,7 +110,7 @@ ALTER TABLE Plati ADD FOREIGN KEY (ClientID) REFERENCES Clienti(ClientID);
 
 ```
 
-### DML (Data Manipulation Language)
+## DML (Data Manipulation Language)
 In order to be able to use the database I have populated the tables with various necessary data in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
 
 ##### Below you can find all the insert instructions that were created for the purpose of this project:
@@ -202,7 +202,7 @@ UPDATE Plati SET MetodaPlata = 'Cash';
 UPDATE Plati SET MetodaPlata = 'Card de credit';
 ```
 
-### DQL (Data Query Language)
+## DQL (Data Query Language)
 
 After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
 
@@ -279,7 +279,7 @@ GROUP BY NumarCamera
 HAVING SUM(Pret) > 200;
 ```
 
-## Queries:
+### Queries:
 
 ##### 1. Query to find hotels with available rooms
 ```
@@ -312,7 +312,7 @@ LEFT JOIN Plati ON Rezervari.RezervareID = Plati.RezervareID
 WHERE Rezervari.RezervareID = 2;
 ```
 
-## Subquerie
+### Subquerie
 
 Query to find customers who registered in the year 2023 or later, made a reservation in the year 2024 or later, and whose reservation status is 'Pending.':
 ```
